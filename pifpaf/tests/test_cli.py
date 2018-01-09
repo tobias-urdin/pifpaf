@@ -54,9 +54,9 @@ class TestCli(testtools.TestCase):
     @testtools.skipUnless(spawn.find_executable("memcached"),
                           "memcached not found")
     def test_env_prefix(self):
-        c = subprocess.Popen(["pifpaf",
+        c = subprocess.Popen(["pifpaf", "run",
                               "--env-prefix", "FOOBAR",
-                              "run", "memcached", "--port", "11215"],
+                              "memcached", "--port", "11215"],
                              bufsize=0,
                              stdout=subprocess.PIPE)
         (stdout, stderr) = c.communicate()
@@ -73,9 +73,9 @@ class TestCli(testtools.TestCase):
     @testtools.skipUnless(spawn.find_executable("memcached"),
                           "memcached not found")
     def test_global_urls_varibale(self):
-        c = subprocess.Popen(["pifpaf",
+        c = subprocess.Popen(["pifpaf", "run",
                               "--env-prefix", "FOOBAR",
-                              "run", "memcached", "--port", "11217",
+                              "memcached", "--port", "11217",
                               "--",
                               "pifpaf",
                               "run", "memcached", "--port", "11218"],
