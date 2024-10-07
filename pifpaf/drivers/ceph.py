@@ -51,7 +51,11 @@ class CephDriver(drivers.Driver):
 
         _, version = self._exec(["ceph", "--version"], stdout=True)
         version = version.decode("ascii").split()[2]
-        version = packaging.version.Version(version)
+        # TODO(tobias.urdin): Take everything before tilde (~) sign
+        # because Ubuntu packages include git commit because they
+        # packaged Ceph before it was released officially
+        clean_version = str(version).split("~")[0]
+        version = packaging.version.Version(clean_version)
 
         if version < packaging.version.Version("12.0.0"):
             extra = """
